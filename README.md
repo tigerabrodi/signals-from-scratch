@@ -29,54 +29,7 @@ doubled(); // Still cached because already in effect! 🚀
 
 # Diagram video
 
-[VIDEO PLACEHOLDER]
-
-# Diagram in mermaid
-
-```mermaid
-graph TD
-    %% Signal Definitions
-    S1[count signal] -->|value, lastChanged| SR[currentRevision]
-    S2[name signal] -->|value, lastChanged| SR
-
-    %% Computed Setup
-    C1[doubled computed] -->|dependencies| S1
-    C2[greeting computed] -->|dependencies| S2
-    C2 -->|dependencies| S1
-
-    %% Effect Setup
-    E1[countDisplay effect] -->|dependencies| S1
-    E1 -->|dependencies| C1
-    E2[nameInput effect] -->|dependencies| S2
-
-    %% Signal Internals
-    subgraph Signal Internal
-        SI[signal] -->|get| CD[currentlyRunningComputed?.dependencies.push]
-        SI -->|get| ED[currentlyRunningEffect?.dependencies.push]
-        SI -->|set| IR[incrementRevision]
-        SI -->|set| RE[subscribedEffects.forEach]
-    end
-
-    %% Effect Lifecycle
-    subgraph Effect Lifecycle
-        EF[effect] -->|initialization| RUN[runEffect]
-        RUN -->|cleanup exists| CL[run cleanup]
-        RUN -->|execution| FN[run fn]
-        FN -->|completion| SAV[save new cleanup]
-    end
-
-    %% Computed Lifecycle
-    subgraph Computed Lifecycle
-        CP[computed] -->|call| CHK[check dependencies]
-        CHK -->|changed| REC[recompute]
-        CHK -->|unchanged| CAC[return cached]
-        REC -->|completion| UPD[update lastRunAt]
-    end
-
-    style Signal Internal fill:#f9f,stroke:#333,stroke-width:2px
-    style Effect Lifecycle fill:#bbf,stroke:#333,stroke-width:2px
-    style Computed Lifecycle fill:#bfb,stroke:#333,stroke-width:2px
-```
+https://github.com/user-attachments/assets/5a75507e-9647-4814-9c8c-d5582f63c0d9
 
 # A few things that could improve the current implementation
 
