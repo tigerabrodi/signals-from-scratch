@@ -1,6 +1,6 @@
-import { computed } from "@lib/computed.js";
-import { effect } from "@lib/effect.js";
-import { signal } from "@lib/signal.js";
+import { computed } from "./lib/computed.js";
+import { effect } from "./lib/effect.js";
+import { signal } from "./lib/signal.js";
 
 const count = signal(0);
 const name = signal("John");
